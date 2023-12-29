@@ -3,12 +3,10 @@ dnf module enable nodejs:18 -y
 dnf install nodejs -y
 cp backend.service /etc/systemd/system/backend.service
 useradd expense
-rm-rf /app
+rm -rf /app
 mkdir /app
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip
-pwd
 cd /app
-pwd
 unzip /tmp/backend.zip
 npm install
 systemctl daemon-reload
