@@ -1,41 +1,41 @@
 echo -e "\e[36mDisable default version of NodJs\e[0m"
-dnf module disable nodejs -y > /temp/expense.log
+dnf module disable nodejs -y > /tmp/expense.log
 
 echo -e "\e[36m Enable NodeJs 18 version\e[0m"
-dnf module enable nodejs:18 -y > /temp/expense.log
+dnf module enable nodejs:18 -y > /tmp/expense.log
 
 echo -e "\e[36m Installing NodeJs\e[0m"
-dnf install nodejs -y > /temp/expense.log
+dnf install nodejs -y > /tmp/expense.log
 
 echo -e "\e[36m Configuring backend service file\e[0m"
-cp backend.service /etc/systemd/system/backend.service > /temp/expense.log
+cp backend.service /etc/systemd/system/backend.service > /tmp/expense.log
 
 echo -e "\e[36m Adding Application user\e[0m"
-useradd expense > /temp/expense.log
+useradd expense > /tmp/expense.log
 
 echo -e "\e[36m Removing existing default app content\e[0m"
-rm -rf /app > /temp/expense.log
+rm -rf /app > /tmp/expense.log
 
 echo -e "\e[36m Creating Application Directory\e[0m"
-mkdir /app > /temp/expense.log
+mkdir /app > /tmp/expense.log
 
 echo -e "\e[36m Downloading application content\e[0m"
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip > /temp/expense.log
-cd /app > /temp/expense.log
+curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip > /tmp/expense.log
+cd /app > /tmp/expense.log
 
 echo -e "\e[36m Extracting Application Content\e[0m"
-unzip /tmp/backend.zip > /temp/expense.log
+unzip /tmp/backend.zip > /tmp/expense.log
 
 echo -e "\e[36m Downloading Application dependencies\e[0m"
-npm install > /temp/expense.log
+npm install > /tmp/expense.log
 
 echo -e "\e[36m Reloading systemd and start backend service\e[0m"
-systemctl daemon-reload > /temp/expense.log
-systemctl enable backend > /temp/expense.log
-systemctl restart backend > /temp/expense.log
+systemctl daemon-reload > /tmp/expense.log
+systemctl enable backend > /tmp/expense.log
+systemctl restart backend > /tmp/expense.log
 
 echo -e "\e[36m Installing  MySql Clinet\e[0m"
-dnf install mysql -y > /temp/expense.log
+dnf install mysql -y > /tmp/expense.log
 
 echo -e "\e[36m Loading Schema\e[0m"
-mysql -h mysql-dev.kdevopspractice.online -uroot -pExpenseApp@1 < /app/schema/backend.sql > /temp/expense.log
+mysql -h mysql-dev.kdevopspractice.online -uroot -pExpenseApp@1 < /app/schema/backend.sql > /tmp/expense.log
