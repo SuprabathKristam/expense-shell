@@ -1,4 +1,4 @@
-echo -e "\e[36m -e "\e[31mDisable default version of NodJs\e[0m"
+echo -e "\e[31mDisable default version of NodJs\e[0m"
 dnf module disable nodejs -y
 
 echo -e "\e[36m Enable NodeJs 18 version\e[0m"
