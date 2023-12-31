@@ -1,4 +1,4 @@
-echo Disable default version of NodJs
+echo -e "\e[31mDisable default version of NodJs\e[0m"
 dnf module disable nodejs -y
 
 echo Enable NodeJs 18 version
@@ -29,13 +29,13 @@ unzip /tmp/backend.zip
 echo Downloading Application dependencies
 npm install
 
-echo reloading systemd and start backend service
+echo Reloading systemd and start backend service
 systemctl daemon-reload
 systemctl enable backend
 systemctl restart backend
 
-echo install MySql Clinet
+echo Installing  MySql Clinet
 dnf install mysql -y
 
-echo loading Schema
+echo Loading Schema
 mysql -h mysql-dev.kdevopspractice.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
