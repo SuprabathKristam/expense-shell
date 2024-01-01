@@ -1,3 +1,4 @@
+MYSQL_PASSWORD=$1
 log_file=/tmp/expense.log
 
 echo -e "\e[36mDisable default version of NodJs\e[0m"
@@ -40,4 +41,4 @@ echo -e "\e[36mInstalling  MySql Clinet\e[0m"
 dnf install mysql -y &>>$log_file
 
 echo -e "\e[36mLoading Schema\e[0m"
-mysql -h mysql-dev.kdevopspractice.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$log_file
+mysql -h mysql-dev.kdevopspractice.online -uroot -p${MYSQL_PASSWORD} < /app/schema/backend.sql &>>$log_file
