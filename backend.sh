@@ -1,44 +1,47 @@
 MYSQL_PASSWORD=$1
 log_file=/tmp/expense.log
 
-echo -e "\e[36mDisable default version of NodJs\e[0m"
+Head(){
+  Head[36m$1\e[0m"
+}
+Head "Disable default version of NodJs"
 dnf module disable nodejs -y &>>$log_file
 
-echo -e "\e[36mEnable NodeJs 18 version\e[0m"
+Head "Enable NodeJs 18 version"
 dnf module enable nodejs:18 -y &>>$log_file
 
-echo -e "\e[36mInstalling NodeJs\e[0m"
+Head "nstalling NodeJs"
 dnf install nodejs -y &>>$log_file
 
-echo -e "\e[36mConfiguring backend service file\e[0m"
+Head "Configuring backend service"
 cp backend.service /etc/systemd/system/backend.service &>>$log_file
 
-echo -e "\e[36mAdding Application user\e[0m"
+Head "Adding Application user"
 useradd expense &>>$log_file
 
-echo -e "\e[36mRemoving existing default app content\e[0m"
+Head "Removing existing default app content"
 rm -rf /app &>>$log_file
 
-echo -e "\e[36mCreating Application Directory\e[0m"
+Head "Creating Application Directory"
 mkdir /app &>>$log_file
 
-echo -e "\e[36mDownloading application content\e[0m"
+Head "Downloading application content"
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip &>>$log_file
 cd /app &>>$log_file
 
-echo -e "\e[36mExtracting Application Content\e[0m"
+Head "Extracting Application Content"
 unzip /tmp/backend.zip &>>$log_file
 
-echo -e "\e[36mDownloading Application dependencies\e[0m"
+Head "Downloading Application dependencies"
 npm install &>>$log_file
 
-echo -e "\e[36mReloading systemd and start backend service\e[0m"
+Head "Reloading systemd and start backend service"
 systemctl daemon-reload &>>$log_file
 systemctl enable backend &>>$log_file
 systemctl restart backend &>>$log_file
 
-echo -e "\e[36mInstalling  MySql Clinet\e[0m"
+Head "Installing  MySql Clinet"
 dnf install mysql -y &>>$log_file
 
-echo -e "\e[36mLoading Schema\e[0m"
+Head "Loading Schema"
 mysql -h mysql-dev.kdevopspractice.online -uroot -p${MYSQL_PASSWORD} < /app/schema/backend.sql &>>$log_file
