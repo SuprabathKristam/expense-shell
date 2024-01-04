@@ -16,11 +16,11 @@ mkdir /app &>>$log_file
 echo $?
 
 Head "Downloading application content"
-curl -o /tmp/${backend}.zip https://expense-artifacts.s3.amazonaws.com/${backend}.zip &>>$log_file
+curl -o /tmp/${component}.zip https://expense-artifacts.s3.amazonaws.com/${component}.zip &>>$log_file
 echo $?
 cd /app
 
 Head "Extracting Application Content"
-unzip /tmp/{backend}.zip &>>$log_file
+unzip /tmp/{component}.zip &>>$log_file
 echo $?
 }
