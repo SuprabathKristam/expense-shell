@@ -1,6 +1,7 @@
 MYSQL_PASSWORD=$1
 
 source common.sh # Importing functions and variables from commmon.sh file
+component=backend
 
 Head "Disable default version of NodJs"
 dnf module disable nodejs -y &>>$log_file
@@ -10,7 +11,7 @@ Head "Enable NodeJs 18 version"
 dnf module enable nodejs:18 -y &>>$log_file
 echo $?
 
-Head "nstalling NodeJs"
+Head "Installing NodeJs"
 dnf install nodejs -y &>>$log_file
 echo $?
 
@@ -22,22 +23,8 @@ Head "Adding Application user"
 useradd expense &>>$log_file
 echo $?
 
-Head "Removing existing default app content"
-rm -rf /app &>>$log_file
-echo $?
-
-Head "Creating Application Directory"
-mkdir /app &>>$log_file
-echo $?
-
-Head "Downloading application content"
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip &>>$log_file
-echo $?
-cd /app
-
-Head "Extracting Application Content"
-unzip /tmp/backend.zip &>>$log_file
-echo $?
+App_Prereq "/app" # Added this function in common.sh with steps that are repeating in other
+#Files also and using it here
 
 Head "Downloading Application dependencies"
 npm install &>>$log_file
