@@ -21,6 +21,6 @@ echo $?
 cd /app
 
 Head "Extracting Application Content"
-unzip /tmp/{component}.zip &>>$log_file
+unzip /tmp/${component}.zip &>>$log_file
 echo $?
 }
