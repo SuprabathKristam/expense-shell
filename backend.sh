@@ -5,7 +5,12 @@ component=backend
 
 Head "Disable default version of NodJs"
 dnf module disable nodejs -y &>>$log_file
-echo $?
+if [ "$?" -eq 0 ];then
+  echo SUCCESS
+else
+  echo FAILURE
+  exit 1
+fi
 
 Head "Enable NodeJs 18 version"
 dnf module enable nodejs:18 -y &>>$log_file
