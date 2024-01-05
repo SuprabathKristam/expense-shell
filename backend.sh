@@ -5,6 +5,7 @@ component=backend
 
 Head "Disable default version of NodJs"
 dnf module disable nodejs -y &>>$log_file
+
 if [ "$?" -eq 0 ];then
   echo SUCCESS
 else
